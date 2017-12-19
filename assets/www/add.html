@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.icons-1.4.5.min.css"/>
+<!-- <link rel="stylesheet" href="jquery.mobile-1.4.5/theme-classic.css"/> -->
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css"/>
+<script type="text/javascript" src="jquery.mobile-1.4.5/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="javascript/add.js"></script>
+<style type="text/css">
+	.hiddenId{
+	 display: none;		
+	}
+</style>
+<script type="text/javascript">
+
+	$(function(){
+		openDB();
+		createDB();
+		
+		$("#add").click(function() {
+			insertDB();
+		})
+		
+		$(document).on("click", "#wordlist li", function() {
+			var name = $(this).find(".name").text();
+			var dday = $(this).find(".dday").text();
+			var amount = $(this).find(".amount").text();
+			var time =$(this).find(".time").text();
+			var why =$(this).find(".why").text();
+			var startday =$(this).find(".startday").text();
+			var sub = $(this).find(".sub").text();
+			hiddenId = $(this).find(".hiddenId").text();
+			$("#kor").val(kor);
+			$("#eng").val(eng);
+			$("#status").text("아이템 선택 완료");
+		})
+		
+		$("#sel").click(function() {
+			selectDB();
+		})
+		
+		$("#del").click(function() {
+			deleteDB();
+		})
+		$("#mod").click(function() {
+			updateDB();
+		})
+	})
+</script>
+</head>
+<body>
+	<div data-role="page">
+		<div data-role="header">
+			<h1>DB기초</h1>
+		</div>
+		<div data-role="content">
+			<p id="status">상태</p>
+			<label for="name">습관명 : </label> 
+			<input type="text" id="name"	placeholder="한국어"> 
+			<label for="dday">도전일 : </label>
+			<input type="text" id="dday" placeholder="영어">
+			<label for="amount">목표량 : </label>
+			<input type="text" id="amount" placeholder="영어">
+			<label for="time">필요시간 : </label>
+			<input type="text" id="time" placeholder="영어">
+			<label for="why">목표이유 : </label>
+			<input type="text" id="why" placeholder="영어">
+			<label for="startday">시작일 : </label>
+			<input type="text" id="startday" placeholder="영어">
+			<label for="sub">보조습관 : </label>
+			<input type="text" id="sub" placeholder="영어">
+			<div class="ui-grid-c">
+				<div class="ui-block-a">
+					<button id="add">추가</button>
+				</div>
+				<div class="ui-block-b">
+					<button id="sel">보기</button>
+				</div>
+				<div class="ui-block-c">
+					<button id="mod">수정</button>
+				</div>
+				<div class="ui-block-d">
+					<button id="del">삭제</button>
+				</div>
+			</div>
+			<br>
+			<ul data-role="listview" data-insert="true" id="wordlist">
+				<li>VIEW 공간</li>
+			</ul>
+		</div>
+	</div>
+</body>
+</html>

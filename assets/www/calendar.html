@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0" />
+<title>Insert title here</title>
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.css"/>
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.icons-1.4.5.min.css"/>
+<!-- <link rel="stylesheet" href="jquery.mobile-1.4.5/theme-classic.css"/> -->
+<link rel="stylesheet" href="jquery.mobile-1.4.5/jquery.mobile.structure-1.4.5.min.css"/>
+<script type="text/javascript" src="jquery.mobile-1.4.5/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="jquery.mobile-1.4.5/jquery.mobile-1.4.5.min.js"></script>
+<script type="text/javascript" src="js/swipe.js"></script>
+<style type="text/css">
+	table, tr, th, td{
+		border : 1px solid black;
+		border-collapse:collapse;
+		margin : 1px;
+		padding : 5px;
+	}
+	th:first-child{
+		color : red;
+	}
+	td:first-child{
+		color : red;
+	}
+	th:last-child{
+		color : blue;
+	}
+	td:last-child{
+		color : blue;
+	}
+	
+</style>
+<script type="text/javascript">
+
+	//날짜 현재 기준일로 한번만 생성
+	var date = new Date();
+	
+	//이번달
+	function calendar1(){
+		//달력 생성
+		
+		var y = date.getFullYear();
+		var m = date.getMonth()+1;
+		
+		//document.write("<h1>"+ y+ "년 " + m +"월" + "</h1>")
+		$("#r").html("<h1>"+ y+ "년 " + m +"월" + "</h1>");
+		var last = [31,28,31,30,31,30,31,31,30,31,30,31];
+		//윤년 : 4년 주기이고 100년은 제외, 400년 주기는 포함
+		if((y%4 == 0 && y%100 !=0) || y%400==0){
+			last[1] =29;
+		}
+		var lastDate = last[m-1];		//이번달 마지막 날짜
+		
+		var row = Math.ceil(lastDate/7);
+		var firstDate = new Date(y, m-1, 1);	//2017.8.1
+		var theDay = firstDate.getDay();		//빈공간의 갯수
+		
+		var calendar = "<table>";
+		
+			calendar+="<tr>";
+				calendar+="<th>일</th>";
+				calendar+="<th>월</th>";
+				calendar+="<th>화</th>";
+				calendar+="<th>수</th>";
+				calendar+="<th>목</th>";
+				calendar+="<th>금</th>";
+				calendar+="<th>토</th>";			
+			calendar+="</tr>";
+		
+		var dNum =1; 	//화면에 표시될 날짜
+		
+		for(var i =1; i<=row; i++){
+			calendar += "<tr>";
+			for( k =1; k<=7; k++){
+				if(i==1 && k<=theDay || dNum > lastDate){		//빈공간처리
+					calendar += "<td>&nbsp;</td>";
+				}else{						//숫자표시
+					calendar += "<td>"+dNum+"</td>";
+					dNum++;
+					}
+			}
+			calendar += "</tr>";	
+		}
+		calendar += "</table>";
+		//document.write(calendar);
+		$("#r").append(calendar);
+	}	
+	
+	//이전달
+	function cal2(){
+		//달력 생성
+		var m = date.getMonth();
+		date.setMonth(m+1);
+		m = date.getMonth()+1;
+		var y = date.getFullYear();
+		//var m = date.getMonth();
+		
+		
+		$("#r").html("<h1>"+ y+ "년 " + m +"월" + "</h1>");
+		var last = [31,28,31,30,31,30,31,31,30,31,30,31];
+		//윤년 : 4년 주기이고 100년은 제외, 400년 주기는 포함
+		if((y%4 == 0 && y%100 !=0) || y%400==0){
+			last[1] =29;
+		}
+		var lastDate = last[m-1];		//이번달 마지막 날짜
+		
+		var row = Math.ceil(lastDate/7);
+		var firstDate = new Date(y, m-1, 1);	//2017.8.1
+		var theDay = firstDate.getDay();		//빈공간의 갯수
+		
+		var calendar = "<table>";
+		
+			calendar+="<tr>";
+				calendar+="<th>일</th>";
+				calendar+="<th>월</th>";
+				calendar+="<th>화</th>";
+				calendar+="<th>수</th>";
+				calendar+="<th>목</th>";
+				calendar+="<th>금</th>";
+				calendar+="<th>토</th>";			
+			calendar+="</tr>";
+		
+		var dNum =1; 	//화면에 표시될 날짜
+		
+		for(var i =1; i<=row; i++){
+			calendar += "<tr>";
+			for( k =1; k<=7; k++){
+				if(i==1 && k<=theDay || dNum > lastDate){		//빈공간처리
+					calendar += "<td>&nbsp;</td>";
+				}else{						//숫자표시
+					calendar += "<td>"+dNum+"</td>";
+					dNum++;
+					}
+			}
+			calendar += "</tr>";	
+		}
+		calendar += "</table>";
+		//document.write(calendar);
+		$("#r").append(calendar);
+	}
+	
+	$(function(){
+		//calendar1();
+		cal2();
+	})
+</script>
+</head>
+<body>
+	<div data-role="page" id="home">
+		<div data-role="header">
+			<h1>header</h1>
+		</div>
+		<div data-role="content">
+			<div id="r">
+				
+			</div>
+			
+			<div class="btn_wrap">
+				<button id="prev">prev</button>
+				<button id="next">next</button>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed">
+			<h4>
+				
+			
+			</h4>
+		</div>
+	</div>
+	
+</body>
+</html>
